@@ -4,8 +4,12 @@ import csv
 
 csvpath=os.path.join("Resources","budget_data.csv")
 
-date_count=0
-net_gain_loss=float(0)
+dates_list=[]
+
+# net_gain_loss2=float(0)
+profit_loss_list=[]
+
+monthly_change=[]
 
 with open(csvpath) as csvfile:
 
@@ -19,12 +23,47 @@ with open(csvpath) as csvfile:
     print(csv_header)
 
     for row in csvreader:
-        date_count+=1
-        net_gain_loss+=float(row[1])
+        # print(row)
+        # date_count+=1
+        dates_list.append(row[0])
+        profit_loss_list.append(float(row[1]))
+        # net_gain_loss2+=float(row[1])
     
-    average_gain_loss=net_gain_loss/date_count
+    date_count=(len(dates_list))
+    # print(date_count)
+    
+    net_gain_loss=sum(profit_loss_list)
+    # print(net_gain_loss)
+    # print(net_gain_loss2)
 
-    print(f"There are a total of {date_count} months in the budget data set.")
-    print(f"The net gain/loss for the budget data is {net_gain_loss} dollars.")
-    print(f"The average gain/loss for the budget data is {average_gain_loss} dollars.")
+    for n in range(1, len(profit_loss_list)):
+        monthly_change.append(profit_loss_list[n]-profit_loss_list[n-1])
+
+    # print(monthly_change)
+
+    average_monthly_change=sum(monthly_change)/len(monthly_change)
+
+    # print(round(average_monthly_change,2))
+
+    max_change=max(monthly_change)
+    # print(max(monthly_change))
+    max_index=monthly_change.index(max_change)
+    # print(max_index)
+    max_date=dates_list[max_index+1]
+    # print(max_date)
+
+    min_change=min(monthly_change)
+    # print(min(monthly_change))
+    min_index=monthly_change.index(min_change)
+    # print(min_index)
+    min_date=dates_list[min_index+1]
+    # print(min_date)
+
+    print("Financial Analysis")
+    print('----------------------------------------------------')
+    print(f'Total Months: {date_count}')
+    print(f'Total: ${round(net_gain_loss,2)}')
+    print(f"Average Change: ${round(average_monthly_change,2)}")
+    print(f'Greatest Increase in Profits: ${max_change} on {max_date}')
+    print(f'Greatest Decrease in Profits: ${min_change} on {min_date}')
 
