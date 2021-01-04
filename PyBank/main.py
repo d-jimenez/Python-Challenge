@@ -3,6 +3,9 @@ import os
 import csv
 
 csvpath=os.path.join("Resources","budget_data.csv")
+#path of budget profit/loss data
+
+text_output_path=os.path.join("Analysis","budget_analysis_output.txt")
 
 dates_list=[]
 
@@ -20,7 +23,7 @@ with open(csvpath) as csvfile:
     csv_header=next(csvreader)
 
     # print(f"CSV Header: {csv_header}")
-    print(csv_header)
+    # print(csv_header)
 
     for row in csvreader:
         # print(row)
@@ -50,6 +53,7 @@ with open(csvpath) as csvfile:
     max_index=monthly_change.index(max_change)
     # print(max_index)
     max_date=dates_list[max_index+1]
+    #need to add 1 to the index because the monthly_change list starts at index 1 and not 0
     # print(max_date)
 
     min_change=min(monthly_change)
@@ -57,7 +61,18 @@ with open(csvpath) as csvfile:
     min_index=monthly_change.index(min_change)
     # print(min_index)
     min_date=dates_list[min_index+1]
+    #need to add 1 to the index because the monthly_change list starts at index 1 and not 0
     # print(min_date)
+
+    with open(text_output_path,"w") as text:
+        text.write("Financial Analysis\n")
+        text.write('----------------------------------------------------\n')
+        text.write(f'Total Months: {date_count}\n')
+        text.write(f'Total: ${round(net_gain_loss,2)}\n')
+        text.write(f"Average Change: ${round(average_monthly_change,2)}\n")
+        text.write(f'Greatest Increase in Profits: ${max_change} on {max_date}\n')
+        text.write(f'Greatest Decrease in Profits: ${min_change} on {min_date}\n')
+
 
     print("Financial Analysis")
     print('----------------------------------------------------')
