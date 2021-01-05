@@ -8,11 +8,13 @@ election_data_path=os.path.join("Resources","election_data.csv")
 election_output_path=os.path.join("Analysis","election_analysis.txt")
 #output text file for election data analysis
 
-voter_id_unique=[]
+voter_id=[]
 
-county_unique=[]
+county=[]
 
-candidate_unique=[]
+candidate=[]
+
+poll_dict={}
 
 with open(election_data_path) as csvfile:
     
@@ -27,16 +29,61 @@ with open(election_data_path) as csvfile:
     for row in csvreader:
         # print(row)
 
-        if row[0] not in voter_id_unique:
-            voter_id_unique.append(row[0])
+        voter_id.append(row[0])
 
-        if row[1] not in county_unique:
-            county_unique.append(row[1])
+        county.append(row[1])
 
-        if row[2] not in candidate_unique:
-            candidate_unique.append(row[2])
+        candidate.append(row[2])
     
-    print(len(csvreader))
-    print(len(voter_id_unique))
-    print(county_unique)
-    print(candidate_unique)
+    voter_id_unique= list(set(voter_id))
+
+    county_unique= sorted(list(set(county)))
+
+    candidate_unique=sorted(list(set(candidate)))
+
+    count_candidate_0=0
+
+    count_candidate_1=0
+
+    count_candidate_2=0
+
+    count_candidate_3=0
+
+    for person in candidate:
+        if person == candidate_unique[0]:
+            count_candidate_0+=1
+
+        if person == candidate_unique[1]:
+            count_candidate_1+=1
+
+        if person == candidate_unique[2]:
+            count_candidate_2+=1
+
+        if person == candidate_unique[3]:
+            count_candidate_3+=1
+
+    count_candidate=[count_candidate_0, count_candidate_1, count_candidate_2, count_candidate_3]
+    
+    total_votes=len(voter_id)
+    # print(len(csvreader))
+    print('Election Results')
+    print('-------------------------------------------------------------------')
+    
+    print(f'Total Votes: {total_votes}')
+    percent_candidate=[count_candidate_0/total_votes, count_candidate_1/total_votes, count_candidate_2/total_votes, count_candidate_3/total_votes]
+    # print(len(voter_id_unique))
+    # print(county_unique)
+    # print(candidate_unique)
+
+    print('-------------------------------------------------------------------')
+    for x in range(0,len(candidate_unique)):
+        print(f'{candidate_unique[x]}: {count_candidate[x]} total votes at {round(percent_candidate[x]*100,3)}%')
+    
+    winning_votes=max(count_candidate)
+    # print(winning_votes)
+    winning_index=count_candidate.index(winning_votes)
+    # print(winning_index)
+    winner=candidate_unique[winning_index]
+    print('-------------------------------------------------------------------')
+    print(f'Winner: {winner}')
+    print('-------------------------------------------------------------------')
