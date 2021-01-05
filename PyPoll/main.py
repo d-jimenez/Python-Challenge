@@ -6,6 +6,9 @@ import os
 
 import csv
 
+from collections import counter
+
+
 election_data_path=os.path.join("Resources","election_data.csv")
 #election data CSV file patch
 
@@ -17,8 +20,6 @@ voter_id=[]
 county=[]
 
 candidate=[]
-
-poll_dict={}
 
 with open(election_data_path) as csvfile:
     
@@ -52,19 +53,20 @@ with open(election_data_path) as csvfile:
     count_candidate_2=0
 
     count_candidate_3=0
+    
 
-    for person in candidate:
-        if person == candidate_unique[0]:
-            count_candidate_0+=1
+    # for person in candidate:
+    #     if person == candidate_unique[0]:
+    #         count_candidate_0+=1
 
-        if person == candidate_unique[1]:
-            count_candidate_1+=1
+    #     if person == candidate_unique[1]:
+    #         count_candidate_1+=1
 
-        if person == candidate_unique[2]:
-            count_candidate_2+=1
+    #     if person == candidate_unique[2]:
+    #         count_candidate_2+=1
 
-        if person == candidate_unique[3]:
-            count_candidate_3+=1
+    #     if person == candidate_unique[3]:
+    #         count_candidate_3+=1
 
     count_candidate=[count_candidate_0, count_candidate_1, count_candidate_2, count_candidate_3]
     
