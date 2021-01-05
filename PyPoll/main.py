@@ -6,9 +6,6 @@ import os
 
 import csv
 
-from collections import counter
-
-
 election_data_path=os.path.join("Resources","election_data.csv")
 #election data CSV file patch
 
