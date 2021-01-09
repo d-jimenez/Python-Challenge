@@ -1,7 +1,3 @@
-#The script below uses a list, set and for loop approach to evaluate the
-#number of votes per candidate, the percentage of votes earnes by each
-#candidate and the winner of the election.
-#-----------------------------------------------------------------------------
 import os
 #import os module, allowing computer to read file path on various operating systems
 
@@ -17,7 +13,8 @@ election_output_path=os.path.join("Analysis","election_analysis.txt")
 poll_dict={}
 #empty dictionary to store candidates and the number of votes for each candidate
 
-
+voter_ID=[]
+#Empty list to store all voter IDs 
 
 with open(election_data_path) as csvfile:
     
@@ -35,42 +32,61 @@ with open(election_data_path) as csvfile:
     for row in csvreader:
         #iterates through csv reader lists of lists
         # print(row)
+
+        voter_ID.append(row[0])
+        #appends each voter ID to list
+        
         if row[2] not in poll_dict:
+        #if the name of the candidate is not a key in the dictionary, then add it to dictionary as key with a value of 1
             poll_dict[row[2]]=1
-        if row[2] in poll_dict:
+         
+        elif row[2] in poll_dict:
+        #if the name of the candidate is  a key in the dictionary, then add 1 to the existing value with respect to the key
             poll_dict[row[2]]+=1
-
-    print(poll_dict)
     
-    # print('Election Results')
-    # print('-------------------------------------------------------------------')
-    
-    # print(f'Total Votes: {total_votes}')
-    # percent_candidate=[count_candidate_0/total_votes, count_candidate_1/total_votes, count_candidate_2/total_votes, count_candidate_3/total_votes]
-    # # print(len(voter_id_unique))
-    # # print(county_unique)
-    # # print(candidate_unique)
+    total_votes=len(voter_ID)
+    #assignes the length of the voter_ID list to variable
 
-    # print('-------------------------------------------------------------------')
-    # for x in range(0,len(candidate_unique)):
-    #     print(f'{candidate_unique[x]}: {count_candidate[x]} total votes at {round(percent_candidate[x]*100,3)}%')
+    #The code below runs the analysis on the dictionary and prints to terminal:
+    print('Election Results')
+    print('-------------------------------------------------------------------')
     
-    # winning_votes=max(count_candidate)
-    # # print(winning_votes)
-    # winning_index=count_candidate.index(winning_votes)
-    # # print(winning_index)
-    # winner=candidate_unique[winning_index]
-    # print('-------------------------------------------------------------------')
-    # print(f'Winner: {winner}')
-    # print('-------------------------------------------------------------------')
+    print(f'Total Votes: {total_votes}')
+    
+    print('-------------------------------------------------------------------')
 
-    # with open(election_output_path,"w") as text:
-    #     text.write("Election Results\n")
-    #     text.write('-------------------------------------------------------------------\n')
-    #     text.write(f'Total Votes: {total_votes}\n')
-    #     text.write('-------------------------------------------------------------------\n')
-    #     for x in range(0,len(candidate_unique)):
-    #         text.write(f'{candidate_unique[x]}: {count_candidate[x]} total votes at {round(percent_candidate[x]*100,3)}%\n')
-    #     text.write('-------------------------------------------------------------------\n')
-    #     text.write(f'Winner: {winner}\n')
-    #     text.write('-------------------------------------------------------------------\n')
+    winning_votes=0
+
+    for name,votes in poll_dict.items():
+    #itterate through dictionary items with name bein key and the votes being the values
+        if votes>=winning_votes:
+        #if the votes value is greater than the winnign votes, then store votes as winnig votes and the name of the candidate as the winner
+            winning_votes=votes
+            winner=name
+        print(f'{name},: {round((int(votes)/total_votes)*100,3)}% ({votes})')
+    
+    print('-------------------------------------------------------------------')
+
+    print(f"Winner: {winner}")
+
+    print('-------------------------------------------------------------------')
+    
+    #reset the winning votes to allow analysis to run again for print to text file code
+
+    #The code below prints to text file:
+    with open(election_output_path,"w") as text:
+        text.write("Election Results\n")
+        text.write('-------------------------------------------------------------------\n')
+        text.write(f'Total Votes: {total_votes}\n')
+        text.write('-------------------------------------------------------------------\n')
+        
+        for name,votes in poll_dict.items():
+        #itterate through dictionary items with name bein key and the votes being the values
+            # if votes>=winning_votes:
+            # #if the votes value is greater than the winnign votes, then store votes as winnig votes and the name of the candidate as the winner
+            #     winning_votes=votes
+            #     winner=name
+            text.write(f'{name},: {round((int(votes)/total_votes)*100,3)}% ({votes})\n')
+        text.write('-------------------------------------------------------------------\n')
+        text.write(f'Winner: {winner}\n')
+        text.write('-------------------------------------------------------------------\n')
