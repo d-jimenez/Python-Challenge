@@ -14,13 +14,7 @@ election_data_path=os.path.join("Resources","election_data.csv")
 election_output_path=os.path.join("Analysis","election_analysis.txt")
 #output text file for election data analysis
 
-voter_id=[]
-#empy list to store voter IDs
-
-county=[]
-#empty list to store countys
-
-candidate=[]
+all_candidate=[]
 #empty list to store candidate
 
 with open(election_data_path) as csvfile:
@@ -46,38 +40,9 @@ with open(election_data_path) as csvfile:
 
         candidate.append(row[2])
     
-    voter_id_unique= list(set(voter_id))
-
-    county_unique= sorted(list(set(county)))
-
-    candidate_unique=sorted(list(set(candidate)))
-
-    count_candidate_0=0
-
-    count_candidate_1=0
-
-    count_candidate_2=0
-
-    count_candidate_3=0
-    
-
-    # for person in candidate:
-    #     if person == candidate_unique[0]:
-    #         count_candidate_0+=1
-
-    #     if person == candidate_unique[1]:
-    #         count_candidate_1+=1
-
-    #     if person == candidate_unique[2]:
-    #         count_candidate_2+=1
-
-    #     if person == candidate_unique[3]:
-    #         count_candidate_3+=1
-
-    count_candidate=[count_candidate_0, count_candidate_1, count_candidate_2, count_candidate_3]
-    
-    total_votes=len(voter_id)
+    total_votes=len(all_candidates)
     # print(len(csvreader))
+    
     print('Election Results')
     print('-------------------------------------------------------------------')
     
