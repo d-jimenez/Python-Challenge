@@ -20,18 +20,13 @@ with open(election_data_path) as csvfile:
     
     csvreader=csv.reader(csvfile, delimiter=",")
     #use csv module to read csv file and store data as list of lists
-    # print(csvreader)
 
     header=next(csvreader)
     #next method iterates to next list in list, 
     #first being the header and stores list as variable
-    # print(header)
-    # row1=next(csvreader)
-    # print(row1)
 
     for row in csvreader:
         #iterates through csv reader lists of lists
-        # print(row)
 
         voter_ID.append(row[0])
         #appends each voter ID to list
@@ -82,10 +77,6 @@ with open(election_data_path) as csvfile:
         
         for name,votes in poll_dict.items():
         #itterate through dictionary items with name bein key and the votes being the values
-            # if votes>=winning_votes:
-            # #if the votes value is greater than the winnign votes, then store votes as winnig votes and the name of the candidate as the winner
-            #     winning_votes=votes
-            #     winner=name
             text.write(f'{name},: {round((int(votes)/total_votes)*100,3)}% ({votes})\n')
         text.write('-------------------------------------------------------------------\n')
         text.write(f'Winner: {winner}\n')
