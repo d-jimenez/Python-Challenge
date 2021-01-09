@@ -14,8 +14,10 @@ election_data_path=os.path.join("Resources","election_data.csv")
 election_output_path=os.path.join("Analysis","election_analysis.txt")
 #output text file for election data analysis
 
-all_candidate=[]
-#empty list to store candidate
+poll_dict={}
+#empty dictionary to store candidates and the number of votes for each candidate
+
+
 
 with open(election_data_path) as csvfile:
     
@@ -33,45 +35,42 @@ with open(election_data_path) as csvfile:
     for row in csvreader:
         #iterates through csv reader lists of lists
         # print(row)
+        if row[2] not in poll_dict:
+            poll_dict[row[2]]=1
+        if row[2] in poll_dict:
+            poll_dict[row[2]]+=1
 
-        voter_id.append(row[0])
-
-        county.append(row[1])
-
-        candidate.append(row[2])
+    print(poll_dict)
     
-    total_votes=len(all_candidates)
-    # print(len(csvreader))
+    # print('Election Results')
+    # print('-------------------------------------------------------------------')
     
-    print('Election Results')
-    print('-------------------------------------------------------------------')
-    
-    print(f'Total Votes: {total_votes}')
-    percent_candidate=[count_candidate_0/total_votes, count_candidate_1/total_votes, count_candidate_2/total_votes, count_candidate_3/total_votes]
-    # print(len(voter_id_unique))
-    # print(county_unique)
-    # print(candidate_unique)
+    # print(f'Total Votes: {total_votes}')
+    # percent_candidate=[count_candidate_0/total_votes, count_candidate_1/total_votes, count_candidate_2/total_votes, count_candidate_3/total_votes]
+    # # print(len(voter_id_unique))
+    # # print(county_unique)
+    # # print(candidate_unique)
 
-    print('-------------------------------------------------------------------')
-    for x in range(0,len(candidate_unique)):
-        print(f'{candidate_unique[x]}: {count_candidate[x]} total votes at {round(percent_candidate[x]*100,3)}%')
+    # print('-------------------------------------------------------------------')
+    # for x in range(0,len(candidate_unique)):
+    #     print(f'{candidate_unique[x]}: {count_candidate[x]} total votes at {round(percent_candidate[x]*100,3)}%')
     
-    winning_votes=max(count_candidate)
-    # print(winning_votes)
-    winning_index=count_candidate.index(winning_votes)
-    # print(winning_index)
-    winner=candidate_unique[winning_index]
-    print('-------------------------------------------------------------------')
-    print(f'Winner: {winner}')
-    print('-------------------------------------------------------------------')
+    # winning_votes=max(count_candidate)
+    # # print(winning_votes)
+    # winning_index=count_candidate.index(winning_votes)
+    # # print(winning_index)
+    # winner=candidate_unique[winning_index]
+    # print('-------------------------------------------------------------------')
+    # print(f'Winner: {winner}')
+    # print('-------------------------------------------------------------------')
 
-    with open(election_output_path,"w") as text:
-        text.write("Election Results\n")
-        text.write('-------------------------------------------------------------------\n')
-        text.write(f'Total Votes: {total_votes}\n')
-        text.write('-------------------------------------------------------------------\n')
-        for x in range(0,len(candidate_unique)):
-            text.write(f'{candidate_unique[x]}: {count_candidate[x]} total votes at {round(percent_candidate[x]*100,3)}%\n')
-        text.write('-------------------------------------------------------------------\n')
-        text.write(f'Winner: {winner}\n')
-        text.write('-------------------------------------------------------------------\n')
+    # with open(election_output_path,"w") as text:
+    #     text.write("Election Results\n")
+    #     text.write('-------------------------------------------------------------------\n')
+    #     text.write(f'Total Votes: {total_votes}\n')
+    #     text.write('-------------------------------------------------------------------\n')
+    #     for x in range(0,len(candidate_unique)):
+    #         text.write(f'{candidate_unique[x]}: {count_candidate[x]} total votes at {round(percent_candidate[x]*100,3)}%\n')
+    #     text.write('-------------------------------------------------------------------\n')
+    #     text.write(f'Winner: {winner}\n')
+    #     text.write('-------------------------------------------------------------------\n')
