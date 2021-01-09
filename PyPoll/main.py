@@ -65,8 +65,6 @@ with open(election_data_path) as csvfile:
     print(f"Winner: {winner}")
 
     print('-------------------------------------------------------------------')
-    
-    #reset the winning votes to allow analysis to run again for print to text file code
 
     #The code below prints to text file:
     with open(election_output_path,"w") as text:
