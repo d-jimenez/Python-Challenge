@@ -1,4 +1,4 @@
-**# Company Financial Analysis**
+# **Company Financial Analysis**
 
 ## Overview
 
@@ -20,7 +20,7 @@ zzz
    
 1. zzz
 
-**# Voting Poll Outcome**
+# **Voting Poll Outcome**
 
 ## Overview
 
