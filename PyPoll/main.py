@@ -58,7 +58,7 @@ with open(election_data_path) as csvfile:
         #if the votes value is greater than the winnign votes, then store votes as winnig votes and the name of the candidate as the winner
             winning_votes=votes
             winner=name
-        print(f'{name},: {round((int(votes)/total_votes)*100,3)}% ({votes})')
+        print(f'{name}: {round((int(votes)/total_votes)*100,3)}% ({votes})')
     
     print('-------------------------------------------------------------------')
 
@@ -75,7 +75,7 @@ with open(election_data_path) as csvfile:
         
         for name,votes in poll_dict.items():
         #itterate through dictionary items with name bein key and the votes being the values
-            text.write(f'{name},: {round((int(votes)/total_votes)*100,3)}% ({votes})\n')
+            text.write(f'{name}: {round((int(votes)/total_votes)*100,3)}% ({votes})\n')
         text.write('-------------------------------------------------------------------\n')
         text.write(f'Winner: {winner}\n')
         text.write('-------------------------------------------------------------------\n')
